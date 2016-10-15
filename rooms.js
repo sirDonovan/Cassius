@@ -12,11 +12,12 @@
 class Room {
 	constructor(id) {
 		this.id = id;
+		this.clientId = id === 'lobby' ? '' : id;
 		this.users = new Map();
 	}
 
 	onJoin(user, rank) {
-		this.users.set(user, 1);
+		this.users.set(user, rank);
 		user.rooms.set(this, rank);
 	}
 
@@ -25,29 +26,33 @@ class Room {
 		user.rooms.delete(this);
 	}
 
-	onRename(user, name) {
-		name = Tools.toName(name);
-		let id = Tools.toId(name);
-		if (id === user.id) {
-			user.name = name;
-			return;
-		}
+	onRename(user, newName) {
+		let rank = newName.charAt(0);
+		newName = Tools.toName(newName);
+		let id = Tools.toId(newName);
 		let oldName = user.name;
-		delete Users.users[user.id];
-		if (Users.users[id]) {
-			Users.users[id].name = name;
-			return;
+		if (id === user.id) {
+			user.name = newName;
+		} else {
+			delete Users.users[user.id];
+			if (Users.users[id]) {
+				user = Users.users[id];
+				user.name = newName;
+			} else {
+				user.name = newName;
+				user.id = id;
+				Users.users[id] = user;
+			}
 		}
-		user.name = name;
-		user.id = id;
-		Users.users[id] = user;
+		this.users.set(user, rank);
+		user.rooms.set(this, rank);
 		if (this.game) this.game.renamePlayer(user, oldName);
 	}
 
 	say(message) {
 		message = Tools.normalizeMessage(message);
 		if (!message) return;
-		Client.send((this.id === 'lobby' ? '' : this.id) + '|' + message);
+		Client.send(this.clientId + '|' + message);
 	}
 
 	parseMessage(messageType, splitMessage) {
@@ -72,7 +77,7 @@ class Room {
 			this.onRename(user, splitMessage[0]);
 			break;
 		case 'c':
-			user = Users.add(splitMessage[0]);
+			user = Users.get(splitMessage[0]);
 			if (!user) return;
 			rank = splitMessage[0].charAt(0);
 			if (user.rooms.get(this) !== rank) user.rooms.set(this, rank);
@@ -80,7 +85,7 @@ class Room {
 			CommandParser.parse(splitMessage.slice(1).join('|'), this, user);
 			break;
 		case 'c:':
-			user = Users.add(splitMessage[1]);
+			user = Users.get(splitMessage[1]);
 			if (!user) return;
 			rank = splitMessage[1].charAt(0);
 			if (user.rooms.get(this) !== rank) user.rooms.set(this, rank);
