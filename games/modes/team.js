@@ -29,11 +29,6 @@ let TeamMode = function () {
 	this.onSignups = null;
 
 	this.onStart = () => {
-		if (this.playerCount < 2) {
-			this.say("This game mode requires at least two players to begin!");
-			this.end();
-			return;
-		}
 		let tracker = Object.keys(this.players), str = 0, teamNames = data["Teams"];
 		this.teamA = Object.keys(teamNames)[Math.floor(Math.random() * Object.keys(teamNames).length)];
 		this.teamB = teamNames[this.teamA];
