@@ -55,7 +55,6 @@ let TeamMode = function () {
 
 	this.onNextRound = () => {
 		this.setAnswers();
-		console.log(this.players);
 		let placeholder = true;
 		this.say(this.hint);
 		this.timeout = setTimeout(() => {
@@ -88,6 +87,5 @@ let TeamMode = function () {
 
 exports.name = name;
 exports.id = id;
-exports.aliases = [];
 exports.requiredFunctions = ['setAnswers', 'checkAnswer'];
 exports.mode = TeamMode;
