@@ -55,10 +55,9 @@ let TeamMode = function () {
 
 	this.onNextRound = () => {
 		this.setAnswers();
-		let placeholder = true;
 		this.say(this.hint);
 		this.timeout = setTimeout(() => {
-			if (placeholder) {
+			if (this.answers) {
 				this.say("Time's up! The answer" + (this.answers.length > 1 ? 's were' : ' was') + ": __" + this.answers.join(", ") + "__");
 			}
 			this.nextRound();
