@@ -9,6 +9,12 @@
 
 'use strict';
 
+// Users who use the settour command when a tournament is already
+// scheduled will be added here and prompted to reuse the command.
+// This prevents accidentally overwriting a scheduled tournament.
+/**@type {Map<string, string>} */
+let overwriteWarnings = new Map();
+
 /**@type {{[k: string]: Command | string}} */
 let commands = {
 	// Developer commands
@@ -155,8 +161,16 @@ let commands = {
 	settour: 'settournament',
 	settournament: function (target, room, user) {
 		if (room instanceof Users.User || !Config.tournaments || !Config.tournaments.includes(room.id) || !user.hasRank(room, '%')) return false;
+		if (room.id in Tournaments.tournamentTimers) {
+			let warned = overwriteWarnings.has(user.id) && overwriteWarnings.get(user.id) === room.id;
+			if (!warned) {
+				overwriteWarnings.set(user.id, room.id);
+				return this.say("A tournament has already been scheduled in this room. To overwrite it, please reuse this command.");
+			}
+			overwriteWarnings.delete(user.id);
+		}
 		let targets = target.split(',');
-		if (targets.length < 2) return this.say(Config.commandCharacter + ".settour - tier, time, cap (optional)");
+		if (targets.length < 2) return this.say(Config.commandCharacter + "settour - tier, time, cap (optional)");
 		let format = Tools.getFormat(targets[0]);
 		if (!format) return this.say('**Error:** invalid format.');
 		if (!format.playable) return this.say(format.name + " cannot be played, please choose another format.");
