@@ -162,12 +162,12 @@ let commands = {
 	settournament: function (target, room, user) {
 		if (room instanceof Users.User || !Config.tournaments || !Config.tournaments.includes(room.id) || !user.hasRank(room, '%')) return false;
 		if (room.id in Tournaments.tournamentTimers) {
-			let warned = overwriteWarnings.has(user.id) && overwriteWarnings.get(user.id) === room.id;
+			let warned = overwriteWarnings.has(room.id) && overwriteWarnings.get(room.id) === user.id;
 			if (!warned) {
-				overwriteWarnings.set(user.id, room.id);
+				overwriteWarnings.set(room.id, user.id);
 				return this.say("A tournament has already been scheduled in this room. To overwrite it, please reuse this command.");
 			}
-			overwriteWarnings.delete(user.id);
+			overwriteWarnings.delete(room.id);
 		}
 		let targets = target.split(',');
 		if (targets.length < 2) return this.say(Config.commandCharacter + "settour - tier, time, cap (optional)");
