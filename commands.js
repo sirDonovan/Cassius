@@ -123,7 +123,7 @@ let commands = {
 	tournament: function (target, room, user) {
 		if (room instanceof Users.User || !Config.tournaments || !Config.tournaments.includes(room.id)) return;
 		if (!target) {
-			if (!user.hasRank(room, '+')) return false;
+			if (!user.hasRank(room, '+')) return;
 			if (!room.tour) return this.say("I am not currently tracking a tournament in this room.");
 			let info = "``" + room.tour.name + " tournament info``";
 			if (room.tour.startTime) {
@@ -134,7 +134,7 @@ let commands = {
 				return this.say(info + ": " + room.tour.playerCount + " player" + (room.tour.playerCount > 1 ? "s" : ""));
 			}
 		} else {
-			if (!user.hasRank(room, '%')) return false;
+			if (!user.hasRank(room, '%')) return;
 			let targets = target.split(',');
 			let cmd = Tools.toId(targets[0]);
 			let format;
@@ -160,7 +160,7 @@ let commands = {
 	},
 	settour: 'settournament',
 	settournament: function (target, room, user) {
-		if (room instanceof Users.User || !Config.tournaments || !Config.tournaments.includes(room.id) || !user.hasRank(room, '%')) return false;
+		if (room instanceof Users.User || !Config.tournaments || !Config.tournaments.includes(room.id) || !user.hasRank(room, '%')) return;
 		if (room.id in Tournaments.tournamentTimers) {
 			let warned = overwriteWarnings.has(room.id) && overwriteWarnings.get(room.id) === user.id;
 			if (!warned) {
@@ -195,7 +195,7 @@ let commands = {
 	},
 	canceltour: 'canceltournament',
 	canceltournament: function (target, room, user) {
-		if (room instanceof Users.User || !Config.tournaments || !Config.tournaments.includes(room.id) || !user.hasRank(room, '%')) return false;
+		if (room instanceof Users.User || !Config.tournaments || !Config.tournaments.includes(room.id) || !user.hasRank(room, '%')) return;
 		if (!(room.id in Tournaments.tournamentTimers)) return this.say("There is no tournament scheduled for this room.");
 		clearTimeout(Tournaments.tournamentTimers[room.id]);
 		this.say("The scheduled tournament was canceled.");
