@@ -53,7 +53,7 @@ const nullCharactersRegex = new RegExp('[\u0000\u200B-\u200F]+', 'g');
 * @property {{[k: string]: TypeChart}} typeChart
 * @property {{[k: string]: FormatData}} formatsData
 * @property {Array<Array<string>>} teams
-* @property {Array<String>} trainerclasses
+* @property {Array<String>} trainerClasses
 */
 
 class Tools {
@@ -69,7 +69,7 @@ class Tools {
 			typeChart: {},
 			formatsData: {},
 			teams: [],
-			trainerclasses: [],
+			trainerClasses: [],
 		};
 		this.gen = 7;
 		this.dataFilePath = './data/';
@@ -221,15 +221,15 @@ class Tools {
 	}
 
 	loadTrainerClasses() {
-		let trainerclasses;
+		let trainerClasses;
 		try {
-			trainerclasses = require(this.dataFilePath + 'trainerclasses.js').TrainerClasses;
+			trainerClasses = require(this.dataFilePath + 'trainer-classes.js').BattleTrainerClasses;
 		} catch (e) {
 			if (e.code !== 'MODULE_NOT_FOUND') {
 				throw e;
 			}
 		}
-		if (trainerclasses) this.data.trainerclasses = trainerclasses;
+		if (trainerClasses) this.data.trainerClasses = trainerClasses;
 	}
 
 	/**

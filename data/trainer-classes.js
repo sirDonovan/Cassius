@@ -1,4 +1,4 @@
-exports.TrainerClasses = [
+exports.BattleTrainerClasses = [
 	"Beauty",
 	"Biker",
 	"Bird Keeper",
