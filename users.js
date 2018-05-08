@@ -33,6 +33,7 @@ class User {
 	 * @return {boolean}
 	 */
 	hasRank(room, targetRank) {
+		if (this.isDeveloper()) return true;
 		if (!Config.groups) return false;
 		let rank;
 		if (typeof room === 'string') {
