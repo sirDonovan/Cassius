@@ -64,6 +64,7 @@ let commands = {
 		Storage.exportDatabase(room.id);
 		this.say("Your quote was successfully added.");
 	},
+	'deletequote': 'removequote',
 	removequote: function (target, room, user) {
 		if (room instanceof Users.User) return;
 		let database = getDatabase(room.id);
