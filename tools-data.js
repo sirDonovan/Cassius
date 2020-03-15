@@ -6,6 +6,8 @@
  */
 'use strict';
 
+/* eslint-disable */
+
 class Effect {
 	/**
 	 * @param {string} name
@@ -562,3 +564,5 @@ exports.Item = Item;
 exports.Pokemon = Pokemon;
 exports.Move = Move;
 exports.Ability = Ability;
+
+/* eslint-enable */
