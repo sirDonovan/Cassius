@@ -11,7 +11,7 @@ Cassius has been succeeded by [Lanette][2] and is no longer actively developed.
   [2]: https://github.com/sirDonovan/Lanette
 
 ## Installation
-Cassius requires [Node.js][3] version 8.9.0 or later and a command line (e.g. `Command Prompt` on Windows or `Terminal` on Mac OS/Linux) to run. Once you have compatible software, complete installation by following these steps:
+Cassius requires [Node.js][3] version 10.13.0 or later and a command line (e.g. `Command Prompt` on Windows or `Terminal` on Mac OS/Linux) to run. Once you have compatible software, complete installation by following these steps:
 
 1. Obtain a copy of Cassius
 
