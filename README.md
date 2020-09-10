@@ -1,5 +1,5 @@
 # Cassius
-[![Build Status](https://travis-ci.org/sirDonovan/Cassius.svg)](https://travis-ci.org/sirDonovan/Cassius)
+[![Build Status](https://api.travis-ci.com/sirDonovan/Cassius.svg?branch=master)](https://travis-ci.com/sirDonovan/Cassius)
 
 A bot for [Pokemon Showdown][1].
 
