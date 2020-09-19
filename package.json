@@ -7,8 +7,11 @@
 		"email": "quivistis@gmail.com"
 	},
 	"scripts": {
+		"lint": "eslint --cache .",
+		"mocha": "mocha --require test/main.js --recursive test/modules -R dot -u bdd --exit",
 		"start": "node app.js",
-		"test": "eslint --cache . && tsc && mocha --require test/main.js --recursive test/modules -R dot -u bdd --exit"
+		"test": "npm run lint && tsc && npm run mocha",
+		"tsc": "tsc"
 	},
 	"main": "app.js",
 	"repository": {

@@ -35,8 +35,17 @@ jobs:
           ${{ runner.OS }}-node-
           ${{ runner.OS }}-
 
-    - run: npm ci
+    - name: Install dependencies
+      run: npm ci
+
     - name: Register tsc problem matcher
       run: echo "##[add-matcher].github/problem-matchers/tsc.json"
+
+    - name: Lint project
+      run: npm run lint
+
     - name: Run TypeScript compiler
       run: npm run tsc
+
+    - name: Run test suite
+      run: npm run mocha
