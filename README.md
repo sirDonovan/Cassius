@@ -1,5 +1,5 @@
 # Cassius
-[![Build Status](https://api.travis-ci.com/sirDonovan/Cassius.svg?branch=master)](https://travis-ci.com/sirDonovan/Cassius)
+[![Build Status](https://github.com/sirDonovan/Cassius/workflows/Node.js%20CI/badge.svg)](https://github.com/sirDonovan/Cassius/actions?query=workflow%3A%22Node.js+CI%22)
 
 A bot for [Pokemon Showdown][1].
 
