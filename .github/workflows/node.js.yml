@@ -36,4 +36,7 @@ jobs:
           ${{ runner.OS }}-
 
     - run: npm ci
-    - run: npm test
+    - name: Register tsc problem matcher
+      run: echo "##[add-matcher].github/problem-matchers/tsc.json"
+    - name: Run TypeScript compiler
+      run: npm run tsc
